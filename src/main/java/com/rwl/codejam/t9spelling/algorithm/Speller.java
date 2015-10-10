@@ -31,27 +31,30 @@ public class Speller implements FileReaderCallback {
 
     public String pressButtonFollowText(String text) {
         StringBuilder builder = new StringBuilder();
+        Character lastButtonPress = null;
         for (int i = 0; i < text.length(); i++) {
-            try {
-                String current = T9Spelling.valueOf(text.charAt(i));
-                if (i == 0) {
-                    builder.append(current);
-                } else {
-                    String previous = String.valueOf(builder.charAt(builder.length() - 1));
-                    if (isSameButton(current, previous)) {
-                        builder.append(" ");
-                    }
-                    builder.append(current);
+            String current = T9Spelling.valueOf(text.charAt(i));
+            if (i == 0) {
+                builder.append(current);
+            } else {
+                if (isSameButton(getLastCharacter(current), lastButtonPress)) {
+                    builder.append(" ");
                 }
-            } catch (IndexOutOfBoundsException ex) {
-
+                builder.append(current);
             }
+            lastButtonPress = builder.charAt(builder.length() - 1);
         }
         return builder.toString();
     }
 
-    private boolean isSameButton(String newText, String previousText) {
-        return newText.contains(previousText) || previousText.contains(newText);
+    private boolean isSameButton(char newBottonPress, char lastButtonPress) {
+        return newBottonPress == lastButtonPress;
     }
 
+    private Character getLastCharacter(String text){
+        if(text != null && !text.isEmpty()){
+            return text.charAt(text.length() - 1);
+        }
+        return null;
+    }
 }

@@ -6,6 +6,11 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <dependencies>
+        <dependency>
+            <groupId>com.rwl</groupId>
+            <artifactId>codejam</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
